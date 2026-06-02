@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>drumm_ink — Tobiasz | Tatuaże manga, comic & dark | Szczecin / Goleniów</title>
+  <meta name="description" content="Tobiasz / drumm_ink — tattoo apprentice w Szczecinie i Goleniowie. Monochromatyczne tatuaże w stylu manga, comic book i dark linework. Rezerwacje przez DM na Instagramie." />
+  <meta property="og:title" content="drumm_ink — Tobiasz | Tatuaże manga, comic & dark" />
+  <meta property="og:description" content="Monochromatyczne tatuaże w stylu manga, comic book i dark linework. Szczecin / Goleniów. Rezerwacje przez DM." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://placehold.co/1200x630/080808/ffffff?text=drumm_ink" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: {
+              bg:       '#080808',
+              surface:  '#111111',
+              elevated: '#161616',
+              border:   '#252525',
+              muted:    '#3a3a3a',
+              text:     '#e2e2e2',
+              dim:      '#777777',
+              red:      '#c41230',
+              'red-dim':'#7a0b1e',
+            }
+          },
+          fontFamily: {
+            display: ['"Bebas Neue"', 'sans-serif'],
+            serif:   ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            mono:    ['"DM Mono"', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ─── Reset & base ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: #080808;
+      color: #e2e2e2;
+      font-family: 'DM Mono', monospace;
+      -webkit-font-smoothing: antialiased;
+      margin: 0;
+    }
+
+    /* ─── Grain overlay ─────────────────────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.032;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 300px 300px;
+    }
+
+    /* ─── Scrollbar ─────────────────────────────────────────────────────── */
+    ::-webkit-scrollbar        { width: 3px; }
+    ::-webkit-scrollbar-track  { background: #080808; }
+    ::-webkit-scrollbar-thumb  { background: #c41230; border-radius: 2px; }
+
+    /* ─── Focus global ──────────────────────────────────────────────────── */
+    :focus-visible { outline: 2px solid #c41230; outline-offset: 3px; }
+
+    /* ─── Animations ─────────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .anim-up   { animation: fadeUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .anim-in   { animation: fadeIn 0.6s ease both; }
+    .d1 { animation-delay: 0.05s; }
+    .d2 { animation-delay: 0.18s; }
+    .d3 { animation-delay: 0.32s; }
+    .d4 { animation-delay: 0.48s; }
+    .d5 { animation-delay: 0.62s; }
+    .d6 { animation-delay: 0.78s; }
+
+    /* ─── Section label ─────────────────────────────────────────────────── */
+    .lbl {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.625rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #c41230;
+    }
+
+    /* ─── Nav ───────────────────────────────────────────────────────────── */
+    .nav-root {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(8,8,8,0.88);
+      border-bottom: 1px solid #141414;
+    }
+
+    .nav-link {
+      position: relative;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: #c41230;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-link:hover        { color: #e2e2e2; }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ─── Buttons ───────────────────────────────────────────────────────── */
+    .btn-red {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: #c41230; color: #fff;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 13px 26px;
+      border: 1px solid #c41230;
+      text-decoration: none;
+      transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    }
+    .btn-red:hover   { background: #a00f27; box-shadow: 0 0 28px rgba(196,18,48,0.35); transform: translateY(-1px); }
+    .btn-red:active  { transform: translateY(0); }
+
+    .btn-out {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: transparent; color: #e2e2e2;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 12px 25px;
+      border: 1px solid #2a2a2a;
+      text-decoration: none;
+      transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    }
+    .btn-out:hover  { border-color: #e2e2e2; transform: translateY(-1px); }
+    .btn-out:active { transform: translateY(0); }
+
+    /* ─── Tag pill ──────────────────────────────────────────────────────── */
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #555;
+      border: 1px solid #1e1e1e; padding: 4px 10px;
+    }
+
+    /* ─── Hero ──────────────────────────────────────────────────────────── */
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 70% 55% at 72% 52%, rgba(196,18,48,0.055) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 70% at 8%  15%, rgba(255,255,255,0.018) 0%, transparent 55%),
+        #080808;
+    }
+
+    /* ─── Portrait placeholder ──────────────────────────────────────────── */
+    .portrait {
+      background: linear-gradient(145deg, #131313 0%, #0d0d0d 100%);
+      border: 1px solid #1e1e1e;
+      position: relative; overflow: hidden;
+    }
+    .portrait-grid {
+      position: absolute; inset: 0;
+      opacity: 0.03;
+      background:
+        repeating-linear-gradient(0deg,   transparent, transparent 30px, #fff 30px, #fff 31px),
+        repeating-linear-gradient(90deg,  transparent, transparent 30px, #fff 30px, #fff 31px);
+    }
+
+    /* ─── Style cards ───────────────────────────────────────────────────── */
+    .style-card {
+      background: #0f0f0f;
+      border: 1px solid #1c1c1c;
+      transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .style-card:hover {
+      border-color: #2a2a2a;
+      transform: translateY(-5px);
+    }
+    .style-thumb {
+      background: #0a0a0a;
+      border-bottom: 1px solid #1a1a1a;
+      position: relative; overflow: hidden;
+    }
+    .style-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease;
+      filter: grayscale(20%) contrast(1.05);
+    }
+    .style-card:hover .style-thumb img {
+      transform: scale(1.04);
+    }
+    .style-thumb-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.75) 0%, rgba(8,8,8,0.1) 60%, transparent 100%);
+      z-index: 1;
+    }
+
+    /* ─── Flash cards ───────────────────────────────────────────────────── */
+    .flash-card {
+      background: #0f0f0f;
+      border: 1px solid #1c1c1c;
+      transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .flash-card:hover {
+      border-color: #c41230;
+      transform: translateY(-3px);
+    }
+
+    .badge-ok {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.16em;
+      text-transform: uppercase; padding: 3px 8px;
+      background: rgba(196,18,48,0.1); color: #c41230;
+      border: 1px solid rgba(196,18,48,0.22);
+    }
+    .badge-no {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.16em;
+      text-transform: uppercase; padding: 3px 8px;
+      background: rgba(100,100,100,0.08); color: #555;
+      border: 1px solid rgba(100,100,100,0.15);
+    }
+
+    .flash-btn {
+      width: 100%;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 10px 16px;
+      background: transparent; color: #666;
+      border: 1px solid #222;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .flash-btn:not(:disabled):hover {
+      background: #c41230; color: #fff; border-color: #c41230;
+    }
+    .flash-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* ─── Booking steps ─────────────────────────────────────────────────── */
+    .step-card {
+      border-left: 1px solid #1c1c1c;
+      padding: 22px 26px;
+      transition: border-color 0.3s ease;
+    }
+    .step-card:hover { border-color: #c41230; }
+    .step-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.75rem; line-height: 1; color: #1e1e1e;
+      transition: color 0.3s ease; flex-shrink: 0;
+    }
+    .step-card:hover .step-num { color: #c41230; }
+
+    /* ─── FAQ ───────────────────────────────────────────────────────────── */
+    .faq-item { border-bottom: 1px solid #181818; }
+    .faq-answer {
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease;
+    }
+    .faq-answer.open { max-height: 220px; opacity: 1; }
+    .faq-icon {
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+      flex-shrink: 0; color: #555;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    /* ─── CTA section ───────────────────────────────────────────────────── */
+    .cta-bg {
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(196,18,48,0.05) 0%, transparent 70%),
+        #080808;
+    }
+
+    /* ─── Section rule ──────────────────────────────────────────────────── */
+    .sec-rule { border: none; border-top: 1px solid #161616; margin: 0; }
+  </style>
+</head>
+
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════════════════════ -->
+<header class="nav-root" role="banner">
+  <div class="max-w-6xl mx-auto px-5 h-[56px] flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-2.5 no-underline" aria-label="drumm_ink – strona główna">
+      <span class="font-display text-[1.35rem] tracking-[0.22em] text-white">drumm_ink</span>
+      <span aria-hidden="true" style="display:inline-block;width:1px;height:14px;background:linear-gradient(to bottom,transparent,#c41230,transparent);transform:rotate(18deg);margin:0 2px;"></span>
+      <span class="font-mono text-[0.6rem] text-[#444] tracking-widest hidden sm:inline">Tobiasz</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-7" aria-label="Nawigacja główna">
+      <a href="#o-mnie" class="nav-link">O mnie</a>
+      <a href="#style"  class="nav-link">Style</a>
+      <a href="#wzory"  class="nav-link">Wzory</a>
+      <a href="#zapisy" class="nav-link">Zapisy</a>
+      <a href="#kontakt" class="btn-red" style="padding:9px 18px;font-size:0.65rem;">Zapisz się</a>
+    </nav>
+
+    <!-- Hamburger -->
+    <button id="hamBtn" class="md:hidden flex flex-col justify-center gap-[5px] w-9 h-9 relative"
+            aria-label="Otwórz menu" aria-expanded="false" aria-controls="mobMenu">
+      <span id="b1" class="block w-5 h-[1px] bg-[#e2e2e2] origin-center transition-transform duration-300"></span>
+      <span id="b2" class="block w-5 h-[1px] bg-[#e2e2e2] transition-opacity duration-300"></span>
+      <span id="b3" class="block w-5 h-[1px] bg-[#e2e2e2] origin-center transition-transform duration-300"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobMenu" class="hidden md:hidden border-t border-[#141414]">
+    <nav class="max-w-6xl mx-auto px-5 py-6 flex flex-col gap-5" aria-label="Menu mobilne">
+      <a href="#o-mnie" onclick="closeMenu()" class="font-mono text-xs tracking-widest uppercase text-[#666] hover:text-white transition-colors no-underline">O mnie</a>
+      <a href="#style"  onclick="closeMenu()" class="font-mono text-xs tracking-widest uppercase text-[#666] hover:text-white transition-colors no-underline">Style</a>
+      <a href="#wzory"  onclick="closeMenu()" class="font-mono text-xs tracking-widest uppercase text-[#666] hover:text-white transition-colors no-underline">Wolne wzory</a>
+      <a href="#zapisy" onclick="closeMenu()" class="font-mono text-xs tracking-widest uppercase text-[#666] hover:text-white transition-colors no-underline">Jak się zapisać</a>
+      <a href="#kontakt" onclick="closeMenu()" class="btn-red self-start mt-1">Zapisz się na tatuaż</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ══════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
+<section class="hero-bg min-h-screen flex items-center pt-14 relative overflow-hidden" aria-label="Wstęp">
+
+  <!-- Decorative grid bg -->
+  <div class="absolute inset-0 pointer-events-none select-none" aria-hidden="true">
+    <div class="absolute right-0 top-0 bottom-0 w-1/2 opacity-[0.025]"
+         style="background: repeating-linear-gradient(0deg,transparent,transparent 44px,#fff 44px,#fff 45px), repeating-linear-gradient(90deg,transparent,transparent 44px,#fff 44px,#fff 45px);">
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-5 w-full py-20 md:py-28">
+    <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+      <!-- Copy -->
+      <div>
+        <p class="lbl anim-up d1 block mb-5">Tattoo apprentice — Szczecin / Goleniów</p>
+
+        <h1 class="font-display leading-none tracking-wider mb-7 anim-up d2"
+            style="font-size: clamp(3.2rem, 9vw, 7rem);">
+          Tatuaże<br />
+          <span class="text-white">w stylu</span><br />
+          <span class="text-[#c41230]">manga,</span><br />
+          comic<br />
+          <span class="text-[#333]">&amp;</span>&nbsp;dark
+        </h1>
+
+        <p class="font-mono text-xs text-[#666] mb-8 max-w-sm anim-up d3" style="line-height:1.9;">
+          Tobiasz / drumm_ink — tattoo apprentice w&nbsp;Pelina&nbsp;Tattoo.
+          Monochromatyczne wzory, mroczny linework i&nbsp;inspiracje popkulturą.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mb-9 anim-up d4">
+          <span class="tag">Manga</span>
+          <span class="tag">Comic</span>
+          <span class="tag">Dark tattoo</span>
+          <span class="tag">Monocolour</span>
+          <span class="tag">Szczecin / Goleniów</span>
+        </div>
+
+        <div class="flex flex-wrap gap-3 anim-up d5">
+          <a href="#kontakt" class="btn-red">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Zapisz się na tatuaż
+          </a>
+          <a href="#wzory" class="btn-out">
+            Zobacz wolne wzory
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Portrait -->
+      <div class="flex justify-center md:justify-end anim-in d3">
+        <div class="relative">
+          <div class="portrait" style="width:clamp(240px,38vw,340px);height:clamp(310px,50vw,440px);">
+            <div class="portrait-grid"></div>
+            <img id="hero-photo" src="brand_assets/hero.jpg" alt="Tobiasz — drumm_ink, tattoo artist"
+                 style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:none;filter:grayscale(15%) contrast(1.05);" />
+
+            <!-- Caption bar -->
+            <div class="absolute bottom-0 left-0 right-0 p-5" style="background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.2) 60%, transparent 100%); z-index:2;">
+              <p class="font-display text-3xl tracking-[0.22em] text-white">Tobiasz</p>
+            </div>
+          </div>
+
+          <!-- Offset frame -->
+          <div class="absolute -bottom-3 -right-3 border border-[#c41230] opacity-20 -z-10"
+               style="width:100%;height:100%;" aria-hidden="true"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" aria-hidden="true">
+    <span class="font-mono text-[0.55rem] text-[#333] tracking-[0.3em] uppercase">scroll</span>
+    <div class="w-px h-7" style="background: linear-gradient(to bottom, #333, transparent);"></div>
+  </div>
+</section>
+
+<hr class="sec-rule" />
+
+<!-- ══════════════════════════════════════════════════════
+     O MNIE
+══════════════════════════════════════════════════════════ -->
+<section id="o-mnie" class="py-24 md:py-32" aria-labelledby="about-heading">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
+
+      <!-- Placeholder photo -->
+      <div class="md:col-span-4">
+        <div class="portrait" style="aspect-ratio:3/4;">
+          <div class="portrait-grid"></div>
+          <img id="about-photo" src="brand_assets/about.jpg" alt="Tobiasz — tatuator, drumm_ink"
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:none;filter:grayscale(15%) contrast(1.05);" />
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="md:col-span-8">
+        <p class="lbl mb-4">O mnie</p>
+        <h2 id="about-heading" class="font-display tracking-wider leading-none mb-5"
+            style="font-size: clamp(2.6rem, 6vw, 4.8rem);">
+          Kreska,<br />kontrast<br />
+          <span class="text-[#c41230]">i charakter.</span>
+        </h2>
+        <div class="w-10 h-px bg-[#c41230] mb-7"></div>
+        <p class="font-mono text-[0.78rem] text-[#666] mb-5 max-w-lg" style="line-height:1.95;">
+          Tworzę tatuaże inspirowane mangą, komiksem, mrocznym lineworkiem
+          i&nbsp;monochromatyczną estetyką. Działam jako tattoo&nbsp;apprentice
+          w&nbsp;Pelina&nbsp;Tattoo.
+        </p>
+        <p class="font-mono text-[0.78rem] text-[#666] mb-10 max-w-lg" style="line-height:1.95;">
+          Najchętniej pracuję z&nbsp;czernią, kontrastem i&nbsp;prostą,
+          charakterystyczną kreską. Każdy tatuaż traktuję jako małe dzieło graficzne.
+        </p>
+
+        <div class="flex flex-wrap gap-8 items-start">
+          <div>
+            <p class="font-display text-[2rem] tracking-[0.18em] text-white">Pelina</p>
+            <p class="lbl mt-1">Tattoo studio</p>
+          </div>
+          <div class="w-px self-stretch bg-[#1e1e1e]"></div>
+          <div>
+            <p class="font-display text-[2rem] tracking-[0.18em] text-white">Szczecin</p>
+            <p class="lbl mt-1">/ Goleniów</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="sec-rule" />
+
+<!-- ══════════════════════════════════════════════════════
+     STYLE TATUAŻY
+══════════════════════════════════════════════════════════ -->
+<section id="style" class="py-24 md:py-32" aria-labelledby="styles-heading">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="mb-14">
+      <p class="lbl mb-4">Specjalizacja</p>
+      <h2 id="styles-heading" class="font-display tracking-wider leading-none"
+          style="font-size: clamp(2.6rem, 6vw, 4.8rem);">
+        Style<br /><span class="text-[#c41230]">tatuaży</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="style-grid">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</section>
+
+<hr class="sec-rule" />
+
+<!-- ══════════════════════════════════════════════════════
+     WOLNE WZORY
+══════════════════════════════════════════════════════════ -->
+<section id="wzory" class="py-24 md:py-32" aria-labelledby="flash-heading">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14">
+      <div>
+        <p class="lbl mb-4">Flash tattoos</p>
+        <h2 id="flash-heading" class="font-display tracking-wider leading-none"
+            style="font-size: clamp(2.6rem, 6vw, 4.8rem);">
+          Wolne<br /><span class="text-[#c41230]">wzory</span>
+        </h2>
+      </div>
+      <p class="font-mono text-[0.72rem] text-[#555] max-w-xs" style="line-height:1.85;">
+        Gotowe projekty czekające na właściciela.
+        Wzór rezerwujesz przez wiadomość prywatną.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="flash-grid">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</section>
+
+<hr class="sec-rule" />
+
+<!-- ══════════════════════════════════════════════════════
+     JAK SIĘ ZAPISAĆ
+══════════════════════════════════════════════════════════ -->
+<section id="zapisy" class="py-24 md:py-32"
+         style="background: linear-gradient(180deg,#080808 0%,#0c0909 50%,#080808 100%);"
+         aria-labelledby="booking-heading">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="mb-14">
+      <p class="lbl mb-4">Proces</p>
+      <h2 id="booking-heading" class="font-display tracking-wider leading-none"
+          style="font-size: clamp(2.6rem, 6vw, 4.8rem);">
+        Jak się<br /><span class="text-[#c41230]">zapisać?</span>
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4 lg:gap-5" id="steps-grid">
+      <!-- Injected by JS -->
+    </div>
+
+    <!-- Info box -->
+    <div class="mt-8 p-5 font-mono text-[0.72rem] text-[#555]"
+         style="border-left: 3px solid #c41230; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; line-height: 1.9;">
+      <span class="text-[#e2e2e2]">Każdy tatuaż wyceniany jest indywidualnie.</span>
+      Cena zależy od rozmiaru, miejsca na ciele i&nbsp;skomplikowania wzoru.
+      Rezerwacje wyłącznie przez wiadomość prywatną —&nbsp;
+      <span class="text-[#e2e2e2]">Bookings via DM.</span>
+    </div>
+  </div>
+</section>
+
+<hr class="sec-rule" />
+
+<!-- ══════════════════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════════════════════ -->
+<section id="faq" class="py-24 md:py-32" aria-labelledby="faq-heading">
+  <div class="max-w-3xl mx-auto px-5">
+    <div class="mb-14">
+      <p class="lbl mb-4">Pytania</p>
+      <h2 id="faq-heading" class="font-display text-5xl tracking-wider">FAQ</h2>
+    </div>
+    <div id="faq-list"></div>
+  </div>
+</section>
+
+<hr class="sec-rule" />
+
+<!-- ══════════════════════════════════════════════════════
+     CONTACT CTA
+══════════════════════════════════════════════════════════ -->
+<section id="kontakt" class="cta-bg py-24 md:py-36 relative overflow-hidden text-center"
+         aria-labelledby="cta-heading">
+  <div class="absolute bottom-0 left-0 right-0 h-px"
+       style="background: linear-gradient(90deg, transparent, #c41230 50%, transparent);"
+       aria-hidden="true"></div>
+
+  <div class="max-w-6xl mx-auto px-5 relative z-10">
+    <p class="lbl mb-6">Kontakt</p>
+    <h2 id="cta-heading" class="font-display tracking-wider leading-none mb-6"
+        style="font-size: clamp(3rem, 10vw, 7.5rem);">
+      Masz pomysł<br />na tatuaż?
+    </h2>
+    <p class="font-mono text-[0.78rem] text-[#555] mb-3 max-w-sm mx-auto" style="line-height:1.9;">
+      Napisz wiadomość i&nbsp;opisz swój projekt.
+      Razem stworzymy coś, co będziesz nosić ze&nbsp;sobą.
+    </p>
+    <p class="font-mono text-[0.6rem] text-[#3a3a3a] mb-10 tracking-[0.28em] uppercase">
+      Bookings via DM
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <a href="https://instagram.com/drumm_ink" target="_blank" rel="noopener noreferrer"
+         class="btn-red" aria-label="Napisz do drumm_ink na Instagramie">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+        Napisz na Instagramie
+      </a>
+      <a href="#wzory" class="btn-out">Zobacz wolne wzory</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════ -->
+<footer class="py-9 border-t border-[#141414]" role="contentinfo">
+  <div class="max-w-6xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <span class="font-display text-lg tracking-[0.2em] text-white">drumm_ink</span>
+      <span class="font-mono text-[0.58rem] text-[#3a3a3a]">/ Tobiasz</span>
+    </div>
+    <p class="font-mono text-[0.6rem] text-[#3a3a3a] text-center">
+      Pelina Tattoo — Szczecin / Goleniów
+    </p>
+    <a href="https://instagram.com/drumm_ink" target="_blank" rel="noopener noreferrer"
+       class="font-mono text-[0.65rem] text-[#555] hover:text-white transition-colors no-underline"
+       aria-label="drumm_ink na Instagramie">
+      @drumm_ink
+    </a>
+  </div>
+</footer>
+
+
+<script>
+// ─── Data ───────────────────────────────────────────────────────────────────
+const STYLES = [
+  {
+    num: '01',
+    title: 'Manga Tattoo',
+    desc: 'Ekspresyjna kreska i dynamiczna kompozycja. Duże oczy, wyraziste linie, emocjonalne kadry — inspirowane japońską mangą.',
+    img: 'brand_assets/gallery/manga.jpg',
+    svg: `<circle cx="100" cy="100" r="68" stroke="white" stroke-width="1.4"/>
+          <path d="M60 78 Q100 42 140 78 Q162 108 140 132 Q100 162 60 132 Q38 108 60 78Z" stroke="white" stroke-width="0.9" fill="none"/>
+          <circle cx="100" cy="100" r="12" fill="white" opacity="0.18"/>
+          <line x1="100" y1="32" x2="100" y2="168" stroke="white" stroke-width="0.4"/>`,
+  },
+  {
+    num: '02',
+    title: 'Comic Book',
+    desc: 'Grube kontury, komiksowe kadry i popkulturowe motywy. Estetyka zachodniej grafiki narracyjnej.',
+    img: 'brand_assets/gallery/comic.jpg',
+    svg: `<rect x="22" y="22" width="156" height="156" stroke="white" stroke-width="1.4" fill="none"/>
+          <line x1="22" y1="62"  x2="178" y2="62"  stroke="white" stroke-width="0.5"/>
+          <line x1="22" y1="138" x2="178" y2="138" stroke="white" stroke-width="0.5"/>
+          <circle cx="100" cy="100" r="28" stroke="white" stroke-width="1.4" fill="none"/>
+          <rect x="32" y="27" width="44" height="10" fill="white" opacity="0.1"/>`,
+  },
+  {
+    num: '03',
+    title: 'Dark Tattoo',
+    desc: 'Mroczne motywy, gotycka symbolika i głęboki kontrast. Tatuaże z nastrojem i charakterem.',
+    img: 'brand_assets/gallery/dark.jpg',
+    svg: `<path d="M100 22 L118 78 L178 78 L130 114 L148 170 L100 136 L52 170 L70 114 L22 78 L82 78 Z" stroke="white" stroke-width="1.4" fill="none"/>
+          <circle cx="100" cy="100" r="82" stroke="white" stroke-width="0.25"/>
+          <path d="M62 122 Q100 148 138 122" stroke="white" stroke-width="0.75" fill="none"/>`,
+  },
+  {
+    num: '04',
+    title: 'Monocolour',
+    desc: 'Tylko czerń i biel. Precyzyjna kreska, głębia cienia i elegancka prostota bez kompromisów.',
+    img: 'brand_assets/gallery/monocolour.jpg',
+    svg: `<circle cx="100" cy="100" r="70" stroke="white" stroke-width="2"/>
+          <circle cx="100" cy="100" r="48" stroke="white" stroke-width="1"/>
+          <circle cx="100" cy="100" r="26" stroke="white" stroke-width="0.75"/>
+          <line x1="30" y1="100" x2="170" y2="100" stroke="white" stroke-width="0.5"/>
+          <line x1="100" y1="30"  x2="100" y2="170" stroke="white" stroke-width="0.5"/>`,
+  },
+];
+
+const FLASH = [
+  { name: 'Dark Serpent',   size: '7–10 cm',  ok: true  },
+  { name: 'Masked Figure',  size: '10–14 cm', ok: true  },
+  { name: 'Small Creature', size: '4–6 cm',   ok: false },
+  { name: 'Comic Heart',    size: '5–7 cm',   ok: true  },
+  { name: 'Smoke Ornament', size: '8–12 cm',  ok: true  },
+  { name: 'Leaf Linework',  size: '6–9 cm',   ok: false },
+];
+
+const STEPS = [
+  { n:'01', t:'Wyślij inspirację',       d:'Prześlij zdjęcie, referencję lub szczegółowy opis pomysłu. Im więcej szczegółów, tym lepiej.' },
+  { n:'02', t:'Podaj rozmiar',           d:'Orientacyjny rozmiar w centymetrach. Pomaga w wycenie i planowaniu projektu.' },
+  { n:'03', t:'Wskaż miejsce',           d:'Napisz, gdzie ma być tatuaż. Lokalizacja wpływa zarówno na projekt, jak i cenę.' },
+  { n:'04', t:'Poczekaj na wycenę',      d:'Każdy projekt wyceniany jest indywidualnie — po analizie opisu, rozmiaru i miejsca.' },
+  { n:'05', t:'Ustal termin i szczegóły',d:'Po akceptacji wyceny ustalamy datę sesji i finalizujemy projekt. Rezerwacje tylko przez DM.', wide: true },
+];
+
+const FAQ = [
+  { q: 'Czy muszę mieć gotowy projekt?',      a: 'Nie. Wystarczy pomysł, referencja lub ogólny kierunek. Projekt tworzę od zera lub pomagam go dopracować.' },
+  { q: 'Jak wygląda wycena?',                  a: 'Każdy tatuaż wyceniany jest indywidualnie — po przesłaniu opisu, rozmiaru i miejsca. Odpowiadam przez DM na Instagramie.' },
+  { q: 'Czy mogę zarezerwować wolny wzór?',    a: 'Tak. Napisz wiadomość z informacją, który wzór Cię interesuje. Wzór ze statusem "dostępny" możesz zarezerwować.' },
+  { q: 'Gdzie wykonujesz tatuaże?',            a: 'Pracuję w Pelina Tattoo — lokalizacje w Szczecinie i Goleniowie. Szczegóły ustalamy po kontakcie.' },
+  { q: 'Czy robisz tatuaże kolorowe?',         a: 'Specjalizuję się w monochromatycznych tatuażach — czarno-białe, linework, manga i dark. Kolorów na razie nie wykonuję.' },
+];
+
+// Flash patterns
+const FLASH_SVG = [
+  `<path d="M40 100 Q100 22 160 100 Q100 178 40 100Z" stroke="white" stroke-width="1.5" fill="none"/><circle cx="100" cy="100" r="28" stroke="white" stroke-width="0.75"/>`,
+  `<rect x="48" y="48" width="104" height="104" stroke="white" stroke-width="1.5" fill="none"/><circle cx="100" cy="100" r="38" stroke="white" stroke-width="0.75"/>`,
+  `<path d="M100 20 L168 78 L144 162 L56 162 L32 78 Z" stroke="white" stroke-width="1.5" fill="none"/>`,
+  `<path d="M100 30 Q128 58 128 100 Q128 142 100 160 Q72 142 72 100 Q72 58 100 30Z" stroke="white" stroke-width="1.5" fill="none"/>`,
+  `<circle cx="100" cy="100" r="68" stroke="white" stroke-width="1.5" fill="none"/><path d="M38 100 Q68 68 100 100 Q132 132 162 100" stroke="white" stroke-width="0.75" fill="none"/>`,
+  `<line x1="100" y1="22" x2="100" y2="178" stroke="white" stroke-width="0.75"/><line x1="62" y1="52" x2="138" y2="52" stroke="white" stroke-width="0.75"/><line x1="42" y1="100" x2="158" y2="100" stroke="white" stroke-width="0.75"/><line x1="62" y1="148" x2="138" y2="148" stroke="white" stroke-width="0.75"/><circle cx="100" cy="100" r="52" stroke="white" stroke-width="1.5" fill="none"/>`,
+];
+
+// ─── Render Styles ───────────────────────────────────────────────────────────
+const styleGrid = document.getElementById('style-grid');
+STYLES.forEach(s => {
+  const el = document.createElement('article');
+  el.className = 'style-card group';
+
+  const thumbContent = s.img
+    ? `<img src="${s.img}" alt="Przykład stylu ${s.title} — tatuaż Tobiasz drumm_ink" loading="lazy" />
+       <div class="style-thumb-overlay"></div>`
+    : `<svg class="absolute inset-0 w-full h-full opacity-[0.11] group-hover:opacity-[0.16] transition-opacity duration-300"
+            viewBox="0 0 200 200" fill="none" aria-hidden="true">${s.svg}</svg>`;
+
+  el.innerHTML = `
+    <div class="style-thumb" style="aspect-ratio:3/4;">${thumbContent}</div>
+    <div class="p-5">
+      <p class="lbl mb-2">${s.num}</p>
+      <h3 class="font-display text-[1.4rem] tracking-wide mb-3">${s.title}</h3>
+      <p class="font-mono text-[0.7rem] text-[#555]" style="line-height:1.85;">${s.desc}</p>
+    </div>
+  `;
+  styleGrid.appendChild(el);
+});
+
+// ─── Render Flash ────────────────────────────────────────────────────────────
+const flashGrid = document.getElementById('flash-grid');
+FLASH.forEach((f, i) => {
+  const el = document.createElement('article');
+  el.className = 'flash-card';
+  el.setAttribute('aria-label', `Wzór: ${f.name}`);
+  el.innerHTML = `
+    <div style="aspect-ratio:1;background:#0a0a0a;position:relative;overflow:hidden;border-bottom:1px solid #181818;">
+      <svg class="absolute inset-0 w-full h-full opacity-[0.13]" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+        ${FLASH_SVG[i]}
+      </svg>
+    </div>
+    <div class="p-4">
+      <div class="flex items-start justify-between gap-2 mb-2">
+        <h3 class="font-display text-[1.15rem] tracking-wide">${f.name}</h3>
+        <span class="${f.ok ? 'badge-ok' : 'badge-no'}">${f.ok ? 'dostępny' : 'zajęty'}</span>
+      </div>
+      <p class="font-mono text-[0.62rem] text-[#444] mb-4">~ ${f.size}</p>
+      <button
+        class="flash-btn"
+        ${!f.ok ? 'disabled' : ''}
+        onclick="window.open('https://instagram.com/drumm_ink','_blank')"
+        aria-label="Zapytaj o wzór ${f.name} na Instagramie"
+      >${f.ok ? 'Zapytaj o wzór →' : 'Niedostępny'}</button>
+    </div>
+  `;
+  flashGrid.appendChild(el);
+});
+
+// ─── Render Steps ────────────────────────────────────────────────────────────
+const stepsGrid = document.getElementById('steps-grid');
+STEPS.forEach(s => {
+  const el = document.createElement('div');
+  el.className = 'step-card' + (s.wide ? ' md:col-span-2' : '');
+  el.innerHTML = `
+    <div class="flex gap-5 items-start">
+      <span class="step-num">${s.n}</span>
+      <div>
+        <h3 class="font-display text-[1.2rem] tracking-wide mb-2">${s.t}</h3>
+        <p class="font-mono text-[0.7rem] text-[#555]" style="line-height:1.85;">${s.d}</p>
+      </div>
+    </div>
+  `;
+  stepsGrid.appendChild(el);
+});
+
+// ─── Render FAQ ──────────────────────────────────────────────────────────────
+const faqList = document.getElementById('faq-list');
+FAQ.forEach((item, i) => {
+  const el = document.createElement('div');
+  el.className = 'faq-item';
+  el.innerHTML = `
+    <button class="w-full text-left py-5 flex items-center justify-between gap-4 group cursor-pointer bg-transparent border-none"
+            aria-expanded="false" aria-controls="fa${i}" id="fb${i}">
+      <span class="font-mono text-[0.78rem] text-[#aaa] group-hover:text-white transition-colors" style="line-height:1.6;">${item.q}</span>
+      <svg class="faq-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+    </button>
+    <div class="faq-answer" id="fa${i}" role="region" aria-labelledby="fb${i}">
+      <p class="font-mono text-[0.72rem] text-[#555] pb-5" style="line-height:1.9;">${item.a}</p>
+    </div>
+  `;
+  faqList.appendChild(el);
+});
+
+document.querySelectorAll('.faq-item button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item   = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+
+    document.querySelectorAll('.faq-item').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.faq-answer').classList.remove('open');
+      el.querySelector('button').setAttribute('aria-expanded', 'false');
+    });
+
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
+// ─── Portrait images — show only when loaded ─────────────────────────────────
+['hero-photo', 'about-photo'].forEach(id => {
+  const img = document.getElementById(id);
+  if (!img) return;
+  img.addEventListener('load', () => { img.style.display = 'block'; });
+  img.addEventListener('error', () => { img.style.display = 'none'; });
+});
+
+// ─── Mobile menu ─────────────────────────────────────────────────────────────
+const hamBtn  = document.getElementById('hamBtn');
+const mobMenu = document.getElementById('mobMenu');
+const b1 = document.getElementById('b1');
+const b2 = document.getElementById('b2');
+const b3 = document.getElementById('b3');
+
+hamBtn.addEventListener('click', () => {
+  const open = !mobMenu.classList.contains('hidden');
+  open ? closeMenu() : openMenu();
+});
+
+function openMenu() {
+  mobMenu.classList.remove('hidden');
+  hamBtn.setAttribute('aria-expanded', 'true');
+  b1.style.transform = 'translateY(6px) rotate(45deg)';
+  b2.style.opacity   = '0';
+  b3.style.transform = 'translateY(-6px) rotate(-45deg)';
+}
+function closeMenu() {
+  mobMenu.classList.add('hidden');
+  hamBtn.setAttribute('aria-expanded', 'false');
+  b1.style.transform = '';
+  b2.style.opacity   = '';
+  b3.style.transform = '';
+}
+</script>
+</body>
+</html>
